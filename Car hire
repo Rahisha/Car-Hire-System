@@ -1,0 +1,284 @@
+package Examples;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for carHire complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="carHire">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="carHire" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="city" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="postcode" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Vehicle" type="{}Vehicle" maxOccurs="unbounded"/>
+ *         &lt;element name="Location" type="{}Location" maxOccurs="unbounded"/>
+ *         &lt;element name="Rental" type="{}Rental" maxOccurs="unbounded"/>
+ *         &lt;element name="Employee" type="{}Employee" maxOccurs="unbounded"/>
+ *         &lt;element name="Customer" type="{}Customer" maxOccurs="unbounded"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "carHire", propOrder = {
+    "carHire",
+    "city",
+    "postcode",
+    "vehicle",
+    "location",
+    "rental",
+    "employee",
+    "customer"
+})
+public class CarHire {
+
+    @XmlElement(required = true)
+    protected String carHire;
+    @XmlElement(required = true)
+    protected String city;
+    @XmlElement(required = true)
+    protected String postcode;
+    @XmlElement(name = "Vehicle", required = true)
+    protected List<Vehicle> vehicle;
+    @XmlElement(name = "Location", required = true)
+    protected List<Location> location;
+    @XmlElement(name = "Rental", required = true)
+    protected List<Rental> rental;
+    @XmlElement(name = "Employee", required = true)
+    protected List<Employee> employee;
+    @XmlElement(name = "Customer", required = true)
+    protected List<Customer> customer;
+
+    /**
+     * Gets the value of the carHire property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCarHire() {
+        return carHire;
+    }
+
+    /**
+     * Sets the value of the carHire property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCarHire(String value) {
+        this.carHire = value;
+    }
+
+    /**
+     * Gets the value of the city property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * Sets the value of the city property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCity(String value) {
+        this.city = value;
+    }
+
+    /**
+     * Gets the value of the postcode property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getPostcode() {
+        return postcode;
+    }
+
+    /**
+     * Sets the value of the postcode property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setPostcode(String value) {
+        this.postcode = value;
+    }
+
+    /**
+     * Gets the value of the vehicle property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the vehicle property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getVehicle().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Vehicle }
+     * 
+     * 
+     */
+    public List<Vehicle> getVehicle() {
+        if (vehicle == null) {
+            vehicle = new ArrayList<Vehicle>();
+        }
+        return this.vehicle;
+    }
+
+    /**
+     * Gets the value of the location property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the location property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getLocation().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Location }
+     * 
+     * 
+     */
+    public List<Location> getLocation() {
+        if (location == null) {
+            location = new ArrayList<Location>();
+        }
+        return this.location;
+    }
+
+    /**
+     * Gets the value of the rental property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the rental property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getRental().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Rental }
+     * 
+     * 
+     */
+    public List<Rental> getRental() {
+        if (rental == null) {
+            rental = new ArrayList<Rental>();
+        }
+        return this.rental;
+    }
+
+    /**
+     * Gets the value of the employee property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the employee property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getEmployee().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Employee }
+     * 
+     * 
+     */
+    public List<Employee> getEmployee() {
+        if (employee == null) {
+            employee = new ArrayList<Employee>();
+        }
+        return this.employee;
+    }
+
+    /**
+     * Gets the value of the customer property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the customer property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getCustomer().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Customer }
+     * 
+     * 
+     */
+    public List<Customer> getCustomer() {
+        if (customer == null) {
+            customer = new ArrayList<Customer>();
+        }
+        return this.customer;
+    }
+
+}
