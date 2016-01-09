@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-16"?>
+<xsd:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified" version="1.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		
+	<!-- Our xml document expects one element containing all info on the library -->
+	
+	<!-- the word "type" can be read as "class" -->
+	
+	<!-- a thing, which is called, of the type= x --> 
+	<xsd:element name="myCarHire" type="CarHire" />
+		
+	<!--  Define the "class" (complexType) library -->
+	<xsd:complexType name="CarHire">
+	
+		<!-- this "class" expects a sequence of elements ("attributes") -->
+		<xsd:sequence>
+		
+		<!-- an attribute,named,     of the type  --> 
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="city" type="xsd:string" />
+			<xsd:element name="postcode" type="xsd:string" />
+			
+		<!-- Attributes which are holding instances of classes  -->
+		<!-- an attribute, that can have many instances  ,named,     of the type(Class)  -->
+			<xsd:element maxOccurs="unbounded" name="Vehicle" type="Vehicle" />		
+			<xsd:element maxOccurs="unbounded" name="Location" type="Location" />	
+			<xsd:element maxOccurs="unbounded" name="Rental" type="Rental" />
+			<xsd:element maxOccurs="unbounded" name="Employee" type="Employee" />
+      <xsd:element maxOccurs="unbounded" name="Customer" type="Customer" />
+
+    </xsd:sequence>
+		
+	</xsd:complexType> <!-- Description of the Class Library ends here  -->
+
+	<!-- Define the classes mentioned in Library and their attributes -->
+	
+	<!--  declaration of the "class" Book -->
+	<xsd:complexType name="Vehicle">
+	
+		<!--  Declaration of the Attributes of the Class Book -->
+		<xsd:sequence>
+		
+		<!-- an attribute,named,       of the type  --> 
+			<xsd:element name="vehicleId" type="xsd:integer" />
+			<xsd:element name="vehicleName" type="xsd:string" />
+      <xsd:element name="vehiclePrice" type="xsd:integer" />
+      <xsd:element name="vehicleLocation" type="xsd:string" />
+      <xsd:element name="vehicleFuelType" type="xsd:string" />
+      <xsd:element name="vehicleTransmission" type="xsd:string" />
+      <xsd:element name="vehicleMaxSeats" type="xsd:integer" />
+      <xsd:element name="vehicleWheelDrive" type="xsd:string" />
+      <xsd:element name="vehicleBodyType" type="xsd:string" />
+      <xsd:element name="vehicleLocationId" type="xsd:integer" />
+      <xsd:element name="customerId" type="xsd:integer" />
+      <xsd:element name="regNo" type="xsd:string" />
+			
+		</xsd:sequence>
+	</xsd:complexType>   <!--  Declaration of the Class Book done -->
+	
+	<xsd:complexType name="Location">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:integer" />
+			<xsd:element name="branchName" type="xsd:string" />
+			<xsd:element name="city" type="xsd:string" />
+			<xsd:element name="openingHours" type="xsd:string" />
+			<xsd:element name="address" type="xsd:string" />
+			<xsd:element name="contactNumber" type="xsd:string" />
+			<xsd:element name="branchmanagerId" type="xsd:integer" />
+			<!-- <xsd:element name="haslend" type="xsd:string" /> lendid#lendis#..... (when lend(s)) OR null (when no lends) -->
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Rental">
+		<xsd:sequence>
+      <xsd:element name="vehicleId" type="xsd:integer" />
+      <xsd:element name="customerId" type="xsd:integer" />
+			<xsd:element name="no_of_rent_days" type="xsd:integer" />
+			<xsd:element name="penaltyFee" type="xsd:double" />
+		  <xsd:element name="rentPerDay" type="xsd:double" />
+      <xsd:element name="totalAmountPayable" type="xsd:double" />
+      <xsd:element name="startdate" type="xsd:string" />
+      <xsd:element name="enddate" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Employee">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:integer" />
+			<xsd:element name="fName" type="xsd:string" />
+			<xsd:element name="lName" type="xsd:string" />
+      <xsd:element name="position" type="xsd:string" />
+			<xsd:element name="userName" type="xsd:string" />
+			<xsd:element name="password" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+  <xsd:complexType name="Customer">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:integer" />
+      <xsd:element name="title" type="xsd:string" />
+      <xsd:element name="fName" type="xsd:string" />
+      <xsd:element name="lName" type="xsd:string" />
+      <xsd:element name="date" type="xsd:string" />
+      <xsd:element name="vehicleId" type="xsd:integer" />
+      <xsd:element name="currentlyRenting" type="xsd:boolean" />
+      <xsd:element name="customerAge" type="xsd:string" />
+      <xsd:element name="customerCountry" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+	
+<!--  All Classes defined now, lets close the Schema  -->
+
+</xsd:schema>
+
+
