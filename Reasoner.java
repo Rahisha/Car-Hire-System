@@ -29,7 +29,7 @@ public class Reasoner {
 
 	public SimpleGUI Myface;
 
-	// The lists holding the class instances of all domain entities
+	// The lists holding the class instances of all carHire (domain) entities
 
 	public List theCarHireList = new ArrayList();
 	public List theVehicleList = new ArrayList();
@@ -111,18 +111,17 @@ public class Reasoner {
 
 		locationsyn.add("location");
 		locationsyn.add("place");
+		locationsyn.add("city");
 		locationsyn.add("whereabouts");
 		locationsyn.add("house");
 		locationsyn.add("position");
 		locationsyn.add("spot");
-		locationsyn.add("placement");
 		locationsyn.add("point");
 		locationsyn.add("destination");
 		locationsyn.add("site");
 		locationsyn.add("area");
 		locationsyn.add("address");
 
-		rentalsyn.add("borrow");
 		rentalsyn.add("renting");
 		rentalsyn.add("rental");
 		rentalsyn.add("get");
@@ -151,14 +150,12 @@ public class Reasoner {
 
 			// Fill the Lists with the objects data just generated from the xml
 
-			theVehicleList = theCarHire.getVehicle();  		//This is a candidate for a name change
-			theCustomerList = theCarHire.getCustomer(); 	//This is a candidate for a name change
-			theLocationList = theCarHire.getLocation(); 	//This is a candidate for a name change
-			theRentalList = theCarHire.getRental(); 	//This is a candidate for a name change
-			theEmployeeList = theCarHire.getEmployee(); 	//This is a candidate for a name change
-			theCarHireList.add(theCarHire);             // force it to be a List, //This is a candidate for a name change
-
-			System.out.println("List reading");
+			theVehicleList = theCarHire.getVehicle();
+			theCustomerList = theCarHire.getCustomer();
+			theLocationList = theCarHire.getLocation();
+			theRentalList = theCarHire.getRental();
+			theEmployeeList = theCarHire.getEmployee();
+			theCarHireList.add(theCarHire);             // force it to be a List
 		}
 
 		catch (Exception e) {
@@ -197,10 +194,10 @@ public class Reasoner {
 		if (input.contains("model")){questiontype = "amount"; input = input.replace("model", "<b>model</b>");}
 		if (input.contains("total")){questiontype = "amount"; input = input.replace("total", "<b>total</b>");}
 
-		if (input.contains("print all")){questiontype = "list"; input = input.replace("print all", "<b>print all</b>");}
-		if (input.contains("list all")){questiontype = "list"; input = input.replace("list all", "<b>list all</b>");}
-		if (input.contains("display all")){questiontype = "list"; input = input.replace("display all", "<b>display all</b>");}
-		if (input.contains("show all")){questiontype = "list"; input = input.replace("show all", "<b>show all</b>");}
+		if (input.contains("print")){questiontype = "list"; input = input.replace("print", "<b>print</b>");}
+		if (input.contains("list")){questiontype = "list"; input = input.replace("list", "<b>list</b>");}
+		if (input.contains("display")){questiontype = "list"; input = input.replace("display", "<b>display</b>");}
+		if (input.contains("show")){questiontype = "list"; input = input.replace("show", "<b>show</b>");}
 		if (input.contains("can i see")){questiontype = "list"; input = input.replace("can i see", "<b>can i see</b>");}
 		if (input.contains("can i view")){questiontype = "list"; input = input.replace("can i view", "<b>can i view</b>");}
 		
@@ -223,6 +220,9 @@ public class Reasoner {
 		}
 		if (input.contains("can i rent") 
 				|| input.contains("can i hire")
+				|| input.contains("interested in")
+				|| input.contains("feel like")
+				|| input.contains("prefer")
 				|| input.contains("can i get the vehicle")
 				|| input.contains("am i able to")
 				|| input.contains("could i rent") 
@@ -266,54 +266,54 @@ public class Reasoner {
 
 		// ------- Checking the Subject of the Question --------------------------------------
 
-		for (int x = 0; x < vehiclesyn.size(); x++) {   //This is a candidate for a name change
-			if (input.contains(vehiclesyn.get(x))) {    //This is a candidate for a name change
-				classtype = theVehicleList;             //This is a candidate for a name change
+		for (int x = 0; x < vehiclesyn.size(); x++) { 
+			if (input.contains(vehiclesyn.get(x))) {
+				classtype = theVehicleList;
 				
 				input = input.replace(vehiclesyn.get(x), "<b>"+vehiclesyn.get(x)+"</b>");
 				
 				subjectcounter = 1;
-				System.out.println("Class type Book recognised.");
+				System.out.println(">>> VEHICLE CLASS <<<");
 			}
 		}
-		for (int x = 0; x < customersyn.size(); x++) {  //This is a candidate for a name change
-			if (input.contains(customersyn.get(x))) {   //This is a candidate for a name change
-				classtype = theCustomerList;            //This is a candidate for a name change
+		for (int x = 0; x < customersyn.size(); x++) {
+			if (input.contains(customersyn.get(x))) {
+				classtype = theCustomerList;
 				
 				input = input.replace(customersyn.get(x), "<b>"+customersyn.get(x)+"</b>");
 				
 				subjectcounter = 1;
-				System.out.println("Class type Member recognised.");
+				System.out.println(">>> CUSTOMER CLASS <<<");
 			}
 		}
-		for (int x = 0; x < locationsyn.size(); x++) {  //This is a candidate for a name change
-			if (input.contains(locationsyn.get(x))) {   //This is a candidate for a name change
-				classtype = theLocationList;            //This is a candidate for a name change
+		for (int x = 0; x < locationsyn.size(); x++) {
+			if (input.contains(locationsyn.get(x))) {
+				classtype = theLocationList;
 				
 				input = input.replace(locationsyn.get(x), "<b>"+locationsyn.get(x)+"</b>");
 				
 				subjectcounter = 1;	
-				System.out.println("Class type Catalog recognised.");
+				System.out.println(">>> LOCATION CLASS <<<");
 			}
 		}
-		for (int x = 0; x < rentalsyn.size(); x++) {  //This is a candidate for a name change
-			if (input.contains(rentalsyn.get(x))) {   //This is a candidate for a name change
-				classtype = theRentalList;            //This is a candidate for a name change
+		for (int x = 0; x < rentalsyn.size(); x++) {
+			if (input.contains(rentalsyn.get(x))) {
+				classtype = theRentalList;
 				
 				input = input.replace(rentalsyn.get(x), "<b>"+rentalsyn.get(x)+"</b>");
 				
 				subjectcounter = 1;	
-				System.out.println("Class type Lending recognised.");
+				System.out.println(">>> RENTAL <<<");
 			}
 		}
-		for (int x = 0; x < employeesyn.size(); x++) {  //This is a candidate for a name change
-			if (input.contains(employeesyn.get(x))) {   //This is a candidate for a name change
-				classtype = theEmployeeList;            //This is a candidate for a name change
+		for (int x = 0; x < employeesyn.size(); x++) {
+			if (input.contains(employeesyn.get(x))) {
+				classtype = theEmployeeList;
 				
 				input = input.replace(employeesyn.get(x), "<b>"+employeesyn.get(x)+"</b>");
 				
 				subjectcounter = 1;	
-				System.out.println("Class type Employee recognised.");
+				System.out.println(">>> EMPLOYEE <<<");
 			}
 		}
 		
@@ -325,57 +325,54 @@ public class Reasoner {
 					input = input.replace(recentobjectsyn.get(x), "<b>"+recentobjectsyn.get(x)+"</b>");
 					
 					subjectcounter = 1;
-					System.out.println("Class type recognised as"+recentobjectsyn.get(x));
+					System.out.println(">>> CLASS "+recentobjectsyn.get(x));
 				}
 			}
 		}
 
-		// More than one subject in question + Library ...
-		// "Does the Library has .. Subject 2 ?"
+		// More than one subject in question + carHire ...
+		// "Does the carHire has .. Subject 2 ?"
 
 		System.out.println("subjectcounter = "+subjectcounter);
 
-		for (int x = 0; x < carHiresyn.size(); x++) {  //This is a candidate for a name change
+		for (int x = 0; x < carHiresyn.size(); x++) {
 
-			if (input.contains(carHiresyn.get(x))) {   //This is a candidate for a name change
+			if (input.contains(carHiresyn.get(x))) {
 
-				// Problem: "How many Books does the Library have ?" -> classtype = Library
+				// Problem: "How many vehicles do you have wworldwide ?" -> classtype = carHire
 				// Solution:
 				
-				if (subjectcounter == 0) { // Library is the first subject in the question
+				if (subjectcounter == 0) { // carHire is the first subject in the question
 					
 					input = input.replace(carHiresyn.get(x), "<b>"+carHiresyn.get(x)+"</b>");
 					
-					classtype = theCarHireList;        //This is a candidate for a name change
-
-					System.out.println("class type Library recognised");		
+					classtype = theCarHireList;
+					System.out.println(">>> LIBRARY CLASS <<<");		
 
 				}
 			}
 		}
 
 		// Compose Method call and generate answerVector
-
 		if (questiontype == "amount") { // Number of Subject
 
 			Integer numberof = Count(classtype);
 
+			// Total count of vehicles MRT holds + location of branches
 			answer=("MRT carHire operates in numerous countries. As of today, we have over <b> " + numberof
 					+ classtype.get(0).getClass().getSimpleName() + "s</b> available for you to rent accross all our branches which includes <b>London, GB</b> and <b>Paris, FR</b>"
 					+".");
 
-			Answered = 1; // An answer was given
+			Answered = 1; // Answer generated
 
 		}
 
 		if (questiontype == "list") { // List all Subjects of a kind
 
-			answer=("You asked for the listing of all "
-					+ classtype.get(0).getClass().getSimpleName() + "s. <br>"
-					+ "We have the following "
-					+ classtype.get(0).getClass().getSimpleName() + "s:"
+			answer=("At the moment, we have all these "
+					+ classtype.get(0).getClass().getSimpleName().toLowerCase() + "s to rent accross all our branches:"
 					+ ListAll(classtype));
-			Answered = 1; // An answer was given
+			Answered = 1; // Answer generated
 
 		}
 
@@ -383,7 +380,7 @@ public class Reasoner {
 
 			Vector<String> check = CheckFor(classtype, input);
 			answer=(check.get(0));
-			Answered = 1; // An answer was given
+			Answered = 1; // Answer generated
 			if (check.size() > 1) {
 				Currentitemofinterest = classtype.get(Integer.valueOf(check
 						.get(1)));
@@ -403,26 +400,25 @@ public class Reasoner {
 		if (questiontype == "location") {   // We always expect a pronomial question to refer to the last
 											// object questioned for
 
-			answer=("You can find the "
-					+ classtype.get(0).getClass().getSimpleName() + " " + "at "
-					+ Location(classtype, input));
+			answer = (VehicleAvailable(classtype, input)
+					+ Location(classtype, input)); // Will return name of the car as well as branch where it is held
 
-			Answered = 1; // An answer was given
+			Answered = 1; // Answer generated
 		}
 
 		if ((questiontype == "intent" && classtype == theVehicleList) 
 				||(questiontype == "intent" && classtype == theRecentThing)) {
 
-			// Can I lend the book or not (Can I lent "it" or not)
-			answer=("You "+ VehicleAvailable(classtype, input));
-			Answered = 1; // An answer was given
+			// Can I have this vehicle?
+			answer = (VehicleAvailable(classtype, input));
+			Answered = 1; // Answer generated
 		}
 
 		if (questiontype == "farewell") {       // Reply to a farewell
 			
-			answer=("You are welcome.");
+			answer = ("Have a good day, you're welcome!");
 
-			Answered = 1; // An answer was given
+			Answered = 1; // Answer generated
 		}
 		
 		// Contains list (bullet points) of the help commands
@@ -437,12 +433,13 @@ public class Reasoner {
 			currList += "</ul>";
 			
 			answer = currList; // Answer is set
-			Answered = 1;
+			Answered = 1; // Answer generated
 		}
 		
-		if (Answered == 0) { // No answer was given
+		// No answer provided, we ask for user to repeat their question
+		if (Answered == 0) {
 
-			answer=("Excuse me, can you repeat that, please?");
+			answer = ("Excuse me, can you repeat that, please?");
 		}
 
 		out.add(input);
@@ -452,9 +449,7 @@ public class Reasoner {
 	}
 
 	// Methods to generate answers for the different kinds of Questions
-	
-	// Answer a question of the "Is a book or "it (meaning a book) available ?" kind
-
+	// Answer a question of the "Is a car or "it (meaning a car) available ?" kind
 	public String VehicleAvailable(List thelist, String input) {
 
 		boolean available =true;
@@ -462,75 +457,69 @@ public class Reasoner {
 		Vehicle curvehicle = new Vehicle();
 		String vehicletitle="";
 
-		if (thelist == theVehicleList) {                      //This is a candidate for a name change
+		if (thelist == theVehicleList) {
 
 			int counter = 0;
 
-			//Identify which book is asked for 
-
+			//Identify which vehicle (model and name) is asked for 
 			for (int i = 0; i < thelist.size(); i++) {
 				
-				curvehicle = (Vehicle) thelist.get(i);         //This is a candidate for a name change
+				curvehicle = (Vehicle) thelist.get(i);
 
-				if (input.contains(curvehicle.getVehicleName().toLowerCase())            //This is a candidate for a name change
-						|| input.contains(curvehicle.getVehicleTransmission().toLowerCase())      //This is a candidate for a name change
-						|| input.contains(curvehicle.getVehicleModel().toLowerCase())) {  //This is a candidate for a name change
+				// Atributtes of that particular make and model (incl. fuel type, transmission, etc.)
+				if (input.contains(curvehicle.getVehicleName().toLowerCase())
+						|| input.contains(curvehicle.getVehicleTransmission().toLowerCase())
+						|| input.contains(curvehicle.getVehicleFuelType().toLowerCase())
+						|| input.contains(curvehicle.getVehicleModel().toLowerCase())) {
 
 					counter = i;
 
 					Currentindex = counter;
-					theRecentThing.clear(); 									//Clear it before adding (changing) the
-					classtype = theVehicleList;                                    //This is a candidate for a name change
+					theRecentThing.clear(); // Clear it before adding (changing) the
+					classtype = theVehicleList;                                 
 					theRecentThing.add(classtype.get(Currentindex));
 					vehicletitle=curvehicle.getVehicleName();
-										
-					if (input.contains(curvehicle.getVehicleName().toLowerCase())){input = input.replace(curvehicle.getVehicleName().toLowerCase(), "<b>"+curvehicle.getVehicleName().toLowerCase()+"</b>");}          
-					if (input.contains(curvehicle.getVehicleTransmission().toLowerCase())) {input = input.replace(curvehicle.getVehicleTransmission().toLowerCase(), "<b>"+curvehicle.getVehicleId()+"</b>");}     
+					
+					// Might need to add more atributes >>> SELF NOTES TOMAS, OR SHOULD I SAY THOMAS <<<
+					if (input.contains(curvehicle.getVehicleName().toLowerCase())){input = input.replace(curvehicle.getVehicleName().toLowerCase(), "<b>"+curvehicle.getVehicleName().toLowerCase()+"</b>");}
+					if (input.contains(curvehicle.getVehicleTransmission().toLowerCase())){input = input.replace(curvehicle.getVehicleTransmission().toLowerCase(), "<b>"+curvehicle.getVehicleTransmission().toLowerCase()+"</b>");}
+					if (input.contains(curvehicle.getVehicleFuelType().toLowerCase())){input = input.replace(curvehicle.getVehicleFuelType().toLowerCase(), "<b>"+curvehicle.getVehicleFuelType().toLowerCase()+"</b>");}
 					if (input.contains(curvehicle.getVehicleModel().toLowerCase())){input = input.replace(curvehicle.getVehicleModel().toLowerCase(), "<b>"+curvehicle.getVehicleModel().toLowerCase()+"</b>");}
 										
-					i = thelist.size() + 1; 									// force break
+					i = thelist.size() + 1; // break the loop
 				}
 			}
 		}
 
-		// maybe other way round or double 
-
 		if (thelist == theRecentThing && theRecentThing.get(0) != null) {
 
 			if (theRecentThing.get(0).getClass().getSimpleName()
-					.toLowerCase().equals("book")) {                  //This is a candidate for a name change
+					.toLowerCase().equals("vehicle")) {
 
-				curvehicle = (Vehicle) theRecentThing.get(0);               //This is a candidate for a name change		
-				vehicletitle=curvehicle.getVehicleName();
+				curvehicle = (Vehicle) theRecentThing.get(0);	
+				vehicletitle = curvehicle.getVehicleName();
 			}
 		}
 
-		// check all lendings if they contain the books ISBN
-
+		// Check all the rentals (rented vehicle's if they contain the same ID, etc.) in order to determinate if it is availabe or not
 		for (int i = 0; i < theRentalList.size(); i++) {
-			System.out.println(">>>>>>> DEBUG 1 CYCLE FOR EQUAL >>>>>>>");
+			Rental currented = (Rental) theRentalList.get(i);
 
-			Rental currented = (Rental) theRentalList.get(i);         //This is a candidate for a name change
-
-			// If there is a lending with the books ISBN, the book is not available
-			System.out.println("Before EQ...");
-			// <-------- HERE 1 --------- >
-			if ( curvehicle.getVehicleId().equals(currented.getVehicleId())) { 
-				System.out.println("After EQ...");
+			// Vehicle is not available if it is found
+			if ( curvehicle.getVehicleId().equals(currented.getVehicleId())) { // <<< SELF NOTE HERE TOMAS, OR SHOULD I SAY THOMAS>>> INSTEAD OF ID use REG NO!!!
 				input = input.replace(currented.getStartdate().toLowerCase(), "<b>"+curvehicle.getVehicleName().toLowerCase()+"</b>"); // It should be ID
 				
-				available=false;
-				i = thelist.size() + 1; 									// force break
-				System.out.println("We get false and we should get else...");
+				available = false;
+				i = thelist.size() + 1; // break the loop
 			}
 		}
 
-		if(available){
-			answer = "New";
-			//answer = "<<< Yes this car is available for hiring. It is availabe at our " + curvehicle.getVehicleLocation() + " branch";
+		if(available) {
+			answer = "You can hire " + curvehicle.getVehicleName() + " " + curvehicle.getVehicleModel() + " at our " + curvehicle.getVehicleLocation() + " branch today. <br>"; // add details below
+			answer = answer + "<br>Details..."; // Fill up this, Tomas!, don't be lazy
 		}
-		else{ 
-			answer="cannot lend the book as someone else has lent it at the moment.";
+		else { 
+			answer = "Unfortunately, this particular " + curvehicle.getVehicleName() + " " + curvehicle.getVehicleModel() + " is taken by one of our customer already. However, we do have other makes and models available for you";
 		}
 
 		URL = "http://wordnetweb.princeton.edu/perl/webwn?o2=&o0=1&o8=1&o1=1&o7=&o5=&o9=&o6=&o3=&o4=&s="
@@ -548,7 +537,6 @@ public class Reasoner {
 	}
 
 	// Answer a question of the "How many ...." kind 
-	
 	public Integer Count(List thelist) { // List "thelist": List of Class Instances (e.g. theVehicleList)
 
 		//URL = "http://en.wiktionary.org/wiki/"		
@@ -566,44 +554,46 @@ public class Reasoner {
 		return thelist.size();
 	}
 
-	// Answer a question of the "What kind of..." kind
-	
+	// Answer a question of the "Show me all the cars" kind
 	public String ListAll(List thelist) {
 
 		String listemall = "<ul>";
 
-		if (thelist == theVehicleList) {                                  //This is a candidate for a name change
+		if (thelist == theVehicleList) {
 			for (int i = 0; i < thelist.size(); i++) {
-				Vehicle curvehicle = (Vehicle) thelist.get(i);                  //This is a candidate for a name change
-				listemall = listemall + "<li>" + ("ID: " + curvehicle.getVehicleId() + " <b>" + curvehicle.getVehicleName() + " " + curvehicle.getVehicleModel() + "</b>, " + curvehicle.getVehicleBodyType().toLowerCase() + ", " + curvehicle.getVehicleFuelType().toLowerCase() + ", " + curvehicle.getVehicleMaxSeats() + " seats, " + curvehicle.getVehicleTransmission().toLowerCase() + " transmission\nPrice: <b>£" + curvehicle.getVehiclePrice() + "</b> per day" + "</li>");    //This is a candidate for a name change
+				Vehicle curvehicle = (Vehicle) thelist.get(i);
+				listemall = listemall + "<li>" + ("ID: " + curvehicle.getVehicleId() + " <b>" + curvehicle.getVehicleName() + " " + curvehicle.getVehicleModel() + "</b>, " + curvehicle.getVehicleBodyType().toLowerCase() + ", " + curvehicle.getVehicleFuelType().toLowerCase() + ", " + curvehicle.getVehicleMaxSeats() + " seats, " + curvehicle.getVehicleTransmission().toLowerCase() + " transmission\nPrice: <b>£" + curvehicle.getVehiclePrice() + "</b> per day" + "</li><br>");
+			} // Prints all the vehicles with particular details in bullet points
+		}
+
+		// Prints customer's >>> Needs to be fixed <<< SELF NOTES
+		if (thelist == theCustomerList) {
+			for (int i = 0; i < thelist.size(); i++) {
+				Customer curcustomer = (Customer) thelist.get(i);
+				listemall = listemall + "<li>"
+						+ (curcustomer.getFName() + " " + curcustomer.getLName() + "</li>");
 			}
 		}
 
-		if (thelist == theCustomerList) {                                //This is a candidate for a name change
+		// Prints location's >>> Needs to be fixed <<< SELF NOTES
+		if (thelist == theLocationList) {
 			for (int i = 0; i < thelist.size(); i++) {
-				Customer curcustomer = (Customer) thelist.get(i);               //This is a candidate for a name change
-				listemall = listemall + "<li>"                         //This is a candidate for a name change
-						+ (curcustomer.getFName() + " " + curcustomer.getLName() + "</li>");  //This is a candidate for a name change
-			}
-		}
-
-		if (thelist == theLocationList) {                               //This is a candidate for a name change
-			for (int i = 0; i < thelist.size(); i++) {
-				Location curlocation = (Location) thelist.get(i);             //This is a candidate for a name change
+				Location curlocation = (Location) thelist.get(i);
 				listemall = listemall 
-						+ "<li>" + (curlocation.getBranchName() + "</li>");      //This is a candidate for a name change
+						+ "<li>" + (curlocation.getBranchName() + "</li>");
 			}
 		}
 		
-		if (thelist == theRentalList) {                               //This is a candidate for a name change
+		// Prints rental's >>> Needs to be fixed <<< SELF NOTES
+		if (thelist == theRentalList) {
 			for (int i = 0; i < thelist.size(); i++) {
-				Rental currental = (Rental) thelist.get(i);             //This is a candidate for a name change
+				Rental currental = (Rental) thelist.get(i);
 				listemall = listemall + "<li>" 
-						+ (currental.getVehicleId() + "</li>");                //This is a candidate for a name change
+						+ (currental.getVehicleId() + "</li>");
 			}
 		}
 		
-		listemall += "</ul>";
+		listemall += "</ul>"; // Closes bullet points
 
 		URL = "http://wordnetweb.princeton.edu/perl/webwn?o2=&o0=1&o8=1&o1=1&o7=&o5=&o9=&o6=&o3=&o4=&s="
 				+ classtype.get(0).getClass().getSimpleName().toLowerCase();
@@ -618,78 +608,80 @@ public class Reasoner {
 		return listemall;
 	}
 
-	// Answer a question of the "Do you have..." kind 
-	
+	// Answer a question of the "I am interested in" kind 
 	public Vector<String> CheckFor(List thelist, String input) {
 
 		Vector<String> yesorno = new Vector<String>();
 		if (classtype.isEmpty()){
-			yesorno.add("Class not recognised. Please specify if you are searching for a book, catalog, member, or lending?");
+			yesorno.add("Please specify what are you looking for? Vehicle, customer, employee or rental information?");
 		} else {
 			yesorno.add("No we don't have such a "
-				+ classtype.get(0).getClass().getSimpleName());
+				+ classtype.get(0).getClass().getSimpleName()); // SELF NOTES <<<
 		}
 
 		Integer counter = 0;
 
-		if (thelist == theVehicleList) {                         //This is a candidate for a name change
+		if (thelist == theVehicleList) {
+			
 
 			for (int i = 0; i < thelist.size(); i++) {
 
-				Vehicle curvehicle = (Vehicle) thelist.get(i);                           //This is a candidate for a name change
+				Vehicle curvehicle = (Vehicle) thelist.get(i);
 
-				if (input.contains(curvehicle.getVehicleName().toLowerCase())            //This is a candidate for a name change
-						|| input.contains(curvehicle.getVehicleTransmission().toLowerCase())      //This is a candidate for a name change
-						|| input.contains(curvehicle.getVehicleName().toLowerCase())) {  //This is a candidate for a name change
+				// Check if MRT helds this particular car
+				if (input.contains(curvehicle.getVehicleName().toLowerCase())
+						|| input.contains(curvehicle.getVehicleTransmission().toLowerCase())
+						|| input.contains(curvehicle.getVehicleFuelType().toLowerCase())
+						|| input.contains(curvehicle.getVehicleModel().toLowerCase())) {
 
-					counter = i;
-					yesorno.set(0, "Yes we have such a Book");                  //This is a candidate for a name change
+					counter = i; // SELF NOTES <<< Include more details below
+					yesorno.set(0, "Yes this particular " + curvehicle.getVehicleName() + " " + curvehicle.getVehicleModel().toLowerCase() + " is available");
 					yesorno.add(counter.toString());
-					i = thelist.size() + 1; // force break
+					i = thelist.size() + 1; // break the loop
 				}
 			}
 		}
 
-		if (thelist == theCustomerList) {                                      //This is a candidate for a name change
+		if (thelist == theCustomerList) {
 			for (int i = 0; i < thelist.size(); i++) {
-				Customer curcustomer = (Customer) thelist.get(i);                      //This is a candidate for a name change
-				if (input.contains(curcustomer.getFName().toLowerCase())         //This is a candidate for a name change
-						|| input.contains(curcustomer.getLName().toLowerCase()) //This is a candidate for a name change
-						|| input.contains(curcustomer.getCustomerCountry().toLowerCase())) {  //This is a candidate for a name change
+				Customer curcustomer = (Customer) thelist.get(i);
+				if (input.contains(curcustomer.getFName().toLowerCase())
+						|| input.contains(curcustomer.getLName().toLowerCase())
+						|| input.contains(curcustomer.getCustomerCountry().toLowerCase())) {
 
 					counter = i;
-					yesorno.set(0, "Yes we have such a Member");               //This is a candidate for a name change
+					yesorno.set(0, "Yes we have such a Customer");
 					yesorno.add(counter.toString());
 					i = thelist.size() + 1;
 				}
 			}
 		}
 
-		if (thelist == theLocationList) {                                    //This is a candidate for a name change
+		if (thelist == theLocationList) {
 			for (int i = 0; i < thelist.size(); i++) {
-				Location curlocation = (Location) thelist.get(i);                  //This is a candidate for a name change
-				if (input.contains(curlocation.getBranchName().toLowerCase())) { //This is a candidate for a name change
+				Location curlocation = (Location) thelist.get(i);
+				if (input.contains(curlocation.getBranchName().toLowerCase())) {
 
 				// Original
-				//if (input.contains(curlocation.getBranchName().toLowerCase())          //This is a candidate for a name change
-						//|| input.contains(curlocation.getUrl().toLowerCase())) { //This is a candidate for a name change
+				//if (input.contains(curlocation.getBranchName().toLowerCase())
+						//|| input.contains(curlocation.getUrl().toLowerCase())) {
 
 					counter = i;
-					yesorno.set(0, "Yes we have such a Catalog");           //This is a candidate for a name change
+					yesorno.set(0, "Yes we have such a Location");
 					yesorno.add(counter.toString());
 					i = thelist.size() + 1;
 				}
 			}
 		}
 		
-		if (thelist == theRentalList) {                                     //This is a candidate for a name change
+		if (thelist == theRentalList) {
 			for (int i = 0; i < thelist.size(); i++) {
-				Rental currented = (Rental) thelist.get(i);                  //This is a candidate for a name change
-				if (input.contains((CharSequence) currented.getVehicleId())          //This is a candidate for a name change
-					|| input.contains((CharSequence) currented.getCustomerId())){ //This is a candidate for a name change
+				Rental currented = (Rental) thelist.get(i);
+				if (input.contains((CharSequence) currented.getVehicleId())
+					|| input.contains((CharSequence) currented.getCustomerId())){
 
 					counter = i;
-					yesorno.set(0, "Yes we have such a Lending");            //This is a candidate for a name change
+					yesorno.set(0, "Yes we have such a Rental");
 					yesorno.add(counter.toString());
 					i = thelist.size() + 1;
 				}
@@ -714,7 +706,6 @@ public class Reasoner {
 	}
 
 	//  Method to retrieve the location information from the object (Where is...) kind
-
 	public String Location(List classtypelist, String input) {
 
 		List thelist = classtypelist;
@@ -725,52 +716,52 @@ public class Reasoner {
 		if (thelist == theRecentThing && theRecentThing.get(0) != null) {
 
 			if (theRecentThing.get(0).getClass().getSimpleName()
-					.toLowerCase().equals("vehicle")) {                  //This is a candidate for a name change
+					.toLowerCase().equals("vehicle")) {
 
-				Vehicle curvehicle = (Vehicle) theRecentThing.get(0);          //This is a candidate for a name change
-				location = (curvehicle.getVehicleLocation() + " ");             //This is a candidate for a name change
+				Vehicle curvehicle = (Vehicle) theRecentThing.get(0);
+				location = (curvehicle.getVehicleLocation() + " "); // SELF NOTES take a closer look here <<<
 
 			}
 
 			if (theRecentThing.get(0).getClass().getSimpleName()
-					.toLowerCase().equals("customer")) {               //This is a candidate for a name change
+					.toLowerCase().equals("customer")) {
 
-				Customer curcustomer = (Customer) theRecentThing.get(0);      //This is a candidate for a name change
-				location = (curcustomer.getCustomerCountry() + " " + curcustomer.getCustomerAge());                                    //This is a candidate for a name change
+				Customer curcustomer = (Customer) theRecentThing.get(0);
+				location = (curcustomer.getCustomerCountry() + " " + curcustomer.getCustomerAge());
 			}
 
 			if (theRecentThing.get(0).getClass().getSimpleName()  
-					.toLowerCase().equals("location")) {                 //This is a candidate for a name change
+					.toLowerCase().equals("location")) {
 
-				Location curlocation = (Location) theRecentThing.get(0);       //This is a candidate for a name change
-				location = (curlocation.getBranchName() + " ");                //This is a candidate for a name change
+				Location curlocation = (Location) theRecentThing.get(0);
+				location = (curlocation.getBranchName() + " ");
 			}
 
 			if (theRecentThing.get(0).getClass().getSimpleName()    
-					.toLowerCase().equals("carhire")) {                  //This is a candidate for a name change
+					.toLowerCase().equals("carhire")) {
 
 				location = (theCarHire.getCity());
-				//location = (theCarHire.getCity() + " " + theCarHire.getStreet() + theCarHire   //This is a candidate for a name change
-				//		.getHousenumber());                                           //This is a candidate for a name change
+				//location = (theCarHire.getCity() + " " + theCarHire.getStreet() + theCarHire
+				//		.getHousenumber());
 			}
 
 		}
 
-		// if a direct noun was used (book, member, etc)
-
+		// if a direct noun was used (vehicle, customer, employee, etc)
 		else {
 
-			if (thelist == theVehicleList) {                         //This is a candidate for a name change
+			if (thelist == theVehicleList) {
 
 				int counter = 0;
 
 				for (int i = 0; i < thelist.size(); i++) {
 
-					Vehicle curvehicle = (Vehicle) thelist.get(i);         //This is a candidate for a name change
+					Vehicle curvehicle = (Vehicle) thelist.get(i);
 
-					if (input.contains(curvehicle.getVehicleName().toLowerCase())            //This is a candidate for a name change
-							|| input.contains(curvehicle.getVehicleTransmission().toLowerCase())      //This is a candidate for a name change
-							|| input.contains(curvehicle.getVehicleModel().toLowerCase())) {  //This is a candidate for a name change
+					if (input.contains(curvehicle.getVehicleName().toLowerCase())
+							|| input.contains(curvehicle.getVehicleTransmission().toLowerCase())
+							|| input.contains(curvehicle.getVehicleFuelType().toLowerCase())
+							|| input.contains(curvehicle.getVehicleModel().toLowerCase())) {
 
 						counter = i;
 						location = (curvehicle.getVehicleLocation() + " ");
@@ -778,22 +769,23 @@ public class Reasoner {
 						theRecentThing.clear(); 									// Clear it before adding (changing) theRecentThing
 						classtype = theVehicleList;                                    //This is a candidate for a name change
 						theRecentThing.add(classtype.get(Currentindex));
-						i = thelist.size() + 1; 									// force break
+						i = thelist.size() + 1; // break the loop
 					}
 				}
 			}
 
-			if (thelist == theCustomerList) {                                         //This is a candidate for a name change
+			if (thelist == theCustomerList) {
 
 				int counter = 0;
 
 				for (int i = 0; i < thelist.size(); i++) {
 
-					Customer curcustomer = (Customer) thelist.get(i);         				  //This is a candidate for a name change
+					Customer curcustomer = (Customer) thelist.get(i);
 
-					if (input.contains(curcustomer.getFName().toLowerCase())              //This is a candidate for a name change
-							|| input.contains(curcustomer.getLName().toLowerCase())      //This is a candidate for a name change
-							|| input.contains((CharSequence) curcustomer.getId())) {   //This is a candidate for a name change
+					// SELF NOTES <<< Change this
+					if (input.contains(curcustomer.getFName().toLowerCase())
+							|| input.contains(curcustomer.getLName().toLowerCase())
+							|| input.contains((CharSequence) curcustomer.getId())) {
 
 						counter = i;
 						location = (curcustomer.getCustomerCountry() + " ");
@@ -801,22 +793,22 @@ public class Reasoner {
 						theRecentThing.clear(); 										// Clear it before adding (changing) the
 						classtype = theCustomerList;            	 						//This is a candidate for a name change
 						theRecentThing.add(classtype.get(Currentindex));
-						i = thelist.size() + 1; 				             	        // force break
+						i = thelist.size() + 1; // break the loop
 					}
 				}
 			}
 
-			if (thelist == theLocationList) {                                       	 //This is a candidate for a name change
+			if (thelist == theLocationList) {
 
 				int counter = 0;
 
 				for (int i = 0; i < thelist.size(); i++) {
 
-					Location curlocation = (Location) thelist.get(i);                    //This is a candidate for a name change
+					Location curlocation = (Location) thelist.get(i);
 
 					if (input.contains(curlocation.getBranchName().toLowerCase())) {
-					//if (input.contains(curlocation.getBranchName().toLowerCase())            //This is a candidate for a name change						     
-					//		|| input.contains(curlocation.getUrl().toLowerCase())) {   //This is a candidate for a name change
+					//if (input.contains(curlocation.getBranchName().toLowerCase())				     
+					//		|| input.contains(curlocation.getUrl().toLowerCase())) {
 
 						counter = i;
 						location = (curlocation.getBranchName() + " ");
@@ -824,12 +816,12 @@ public class Reasoner {
 						theRecentThing.clear();                                      // Clear it before adding (changing) the	
 						classtype = theLocationList;                                  //This is a candidate for a name change
 						theRecentThing.add(classtype.get(Currentindex));
-						i = thelist.size() + 1;                                      // force break
+						i = thelist.size() + 1; // break the loop
 					}
 				}
 			}
 
-			if (thelist == theCarHireList) {                                                  //This is a candidate for a name change
+			if (thelist == theCarHireList) {
 
 				location = (theCarHire.getCity());
 			}
@@ -855,7 +847,7 @@ public class Reasoner {
 		System.out.println(">>> TESTING MRT carHire System <<<"); // Initials
 		System.out.println("Vehicle List contains of = " + theVehicleList.size() + " vehicles in Vehicle class");
 
-		for (int i = 0; i < theVehicleList.size(); i++) {   // check each book in the List, //This is a candidate for a name change
+		for (int i = 0; i < theVehicleList.size(); i++) {   // Check each vehicle in the array
 
 			Vehicle curvehicle = (Vehicle) theVehicleList.get(i);									
 			System.out.println("Brand: " + curvehicle.getVehicleName() + " Model: " + curvehicle.getVehicleModel() + " Reg. number: " + curvehicle.getRegNo()); // Print every vehicle on the Vehicle class
@@ -874,7 +866,7 @@ public class Reasoner {
 
 			String lineread = readit.readLine();
 
-			System.out.println("Reader okay");
+			System.out.println("Green light!");
 
 			while (lineread != null) {
 				webtext = webtext + lineread;
@@ -891,7 +883,7 @@ public class Reasoner {
 
 		} catch (Exception e) {
 			webtext = "Not yet";
-			System.out.println("Error connecting to wordnet");
+			System.out.println("ERROR: cannot connect to wordnet");
 		}
 		return webtext;
 	}
