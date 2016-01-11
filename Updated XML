@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!--  Our one element xml document, describing one instance of a Library object -->
+
+<carHire>      <!-- the one libraryobject conatining alle the info -->
+
+	<name>MRT carHire HQ</name>            <!--  here follow all attributes of the mylibrary object -->
+	<city>London</city>
+	<postcode>W1 8EZ</postcode>	
+	
+	<Vehicle>                                       <!-- An Instance of a vehicle -->
+		<vehicleId>1</vehicleId>
+		<vehicleName>Renault</vehicleName>
+		<vehicleModel>Clio</vehicleModel>
+		<vehicleAvailability>1</vehicleAvailability>
+		<vehiclePrice>100</vehiclePrice>
+		<vehicleLocation>Paris</vehicleLocation>
+		<vehicleFuelType>Petrol</vehicleFuelType>
+		<vehicleTransmission>Manual</vehicleTransmission>
+		<vehicleMaxSeats>5</vehicleMaxSeats>
+		<vehicleWheelDrive>FWD</vehicleWheelDrive>
+		<vehicleBodyType>Hatchback</vehicleBodyType>
+		<vehicleLocationId>321</vehicleLocationId>
+		<customerId>null</customerId>
+		<regNo>BJ02 LHD</regNo>
+	</Vehicle>
+	<Vehicle>                                       <!-- An Instance of a vehicle -->
+		<vehicleId>2</vehicleId>
+		<vehicleName>Toyota</vehicleName>
+		<vehicleModel>Versus</vehicleModel>
+		<vehicleAvailability>1</vehicleAvailability>
+		<vehiclePrice>120</vehiclePrice>
+		<vehicleLocation>London</vehicleLocation>
+		<vehicleFuelType>Petrol</vehicleFuelType>
+		<vehicleTransmission>Manual</vehicleTransmission>
+		<vehicleMaxSeats>7</vehicleMaxSeats>
+		<vehicleWheelDrive>FWD</vehicleWheelDrive>
+		<vehicleBodyType>Minivan</vehicleBodyType>
+		<vehicleLocationId>322</vehicleLocationId>
+		<customerId>null</customerId>
+		<regNo>BJ34 LHO</regNo>
+	</Vehicle>
+		<Vehicle>                                       <!-- An Instance of a vehicle -->
+		<vehicleId>3</vehicleId>
+		<vehicleName>Audi</vehicleName>
+		<vehicleModel>A3</vehicleModel>
+		<vehicleAvailability>0</vehicleAvailability>
+		<vehiclePrice>150</vehiclePrice>
+		<vehicleLocation>London</vehicleLocation>
+		<vehicleFuelType>Diesel</vehicleFuelType>
+		<vehicleTransmission>Manual</vehicleTransmission>
+		<vehicleMaxSeats>5</vehicleMaxSeats>
+		<vehicleWheelDrive>FWD</vehicleWheelDrive>
+		<vehicleBodyType>Hatchback</vehicleBodyType>
+		<vehicleLocationId>323</vehicleLocationId>
+		<customerId>2</customerId>
+		<regNo>HJ19 OSP</regNo>
+	</Vehicle>
+	</Vehicle>
+		<Vehicle>                                       <!-- An Instance of a vehicle -->
+		<vehicleId>4</vehicleId>
+		<vehicleName>BMW</vehicleName>
+		<vehicleModel>3 Series</vehicleModel>
+		<vehicleAvailability>1</vehicleAvailability>
+		<vehiclePrice>140</vehiclePrice>
+		<vehicleLocation>Rome</vehicleLocation>
+		<vehicleFuelType>Diesel</vehicleFuelType>
+		<vehicleTransmission>Automatic</vehicleTransmission>
+		<vehicleMaxSeats>5</vehicleMaxSeats>
+		<vehicleWheelDrive>FWD</vehicleWheelDrive>
+		<vehicleBodyType>Hatchback</vehicleBodyType>
+		<vehicleLocationId>324</vehicleLocationId>
+		<customerId>null</customerId>
+		<regNo>JP33 RSD</regNo>
+	</Vehicle>
+	</Vehicle>
+		<Vehicle>                                       <!-- An Instance of a vehicle -->
+		<vehicleId>5</vehicleId>
+		<vehicleName>Audi</vehicleName>
+		<vehicleModel>A4</vehicleModel>
+		<vehicleAvailability>1</vehicleAvailability>
+		<vehiclePrice>180</vehiclePrice>
+		<vehicleLocation>Paris</vehicleLocation>
+		<vehicleFuelType>Diesel</vehicleFuelType>
+		<vehicleTransmission>Manual</vehicleTransmission>
+		<vehicleMaxSeats>5</vehicleMaxSeats>
+		<vehicleWheelDrive>FWD</vehicleWheelDrive>
+		<vehicleBodyType>Hatchback</vehicleBodyType>
+		<vehicleLocationId>325</vehicleLocationId>
+		<customerId>null</customerId>
+		<regNo>YU13 WER</regNo>
+	</Vehicle>
+	</Vehicle>
+		<Vehicle>                                       <!-- An Instance of a vehicle -->
+		<vehicleId>6</vehicleId>
+		<vehicleName>Nissan</vehicleName>
+		<vehicleModel>Juke</vehicleModel>
+		<vehicleAvailability>0</vehicleAvailability>
+		<vehiclePrice>120</vehiclePrice>
+		<vehicleLocation>Barcelona</vehicleLocation>
+		<vehicleFuelType>Diesel</vehicleFuelType>
+		<vehicleTransmission>Manual</vehicleTransmission>
+		<vehicleMaxSeats>5</vehicleMaxSeats>
+		<vehicleWheelDrive>FWD</vehicleWheelDrive>
+		<vehicleBodyType>Hatchback</vehicleBodyType>
+		<vehicleLocationId>326</vehicleLocationId>
+		<customerId>3</customerId>
+		<regNo>BR56 ASD</regNo>
+	</Vehicle>
+	</Vehicle>
+		<Vehicle>                                       <!-- An Instance of a vehicle -->
+		<vehicleId>7</vehicleId>
+		<vehicleName>Fiat</vehicleName>
+		<vehicleModel>Panda</vehicleModel>
+		<vehicleAvailability>0</vehicleAvailability>
+		<vehiclePrice>130</vehiclePrice>
+		<vehicleLocation>Brussels</vehicleLocation>
+		<vehicleFuelType>Petrol</vehicleFuelType>
+		<vehicleTransmission>Manual</vehicleTransmission>
+		<vehicleMaxSeats>5</vehicleMaxSeats>
+		<vehicleWheelDrive>FWD</vehicleWheelDrive>
+		<vehicleBodyType>Hatchback</vehicleBodyType>
+		<vehicleLocationId>327</vehicleLocationId>
+		<customerId>4</customerId>
+		<regNo>BR09 LOL</regNo>
+	</Vehicle>
+	</Vehicle>
+		<Vehicle>                                       <!-- An Instance of a vehicle -->
+		<vehicleId>8</vehicleId>
+		<vehicleName>BMW</vehicleName>
+		<vehicleModel>4 Series</vehicleModel>
+		<vehicleAvailability>1</vehicleAvailability>
+		<vehiclePrice>145</vehiclePrice>
+		<vehicleLocation>Brussels</vehicleLocation>
+		<vehicleFuelType>Petrol</vehicleFuelType>
+		<vehicleTransmission>Manual</vehicleTransmission>
+		<vehicleMaxSeats>5</vehicleMaxSeats>
+		<vehicleWheelDrive>FWD</vehicleWheelDrive>
+		<vehicleBodyType>Hatchback</vehicleBodyType>
+		<vehicleLocationId>328</vehicleLocationId>
+		<customerId>null</customerId>
+		<regNo>BR45 POP</regNo>
+	</Vehicle>
+	</Vehicle>
+		<Vehicle>                                       <!-- An Instance of a vehicle -->
+		<vehicleId>9</vehicleId>
+		<vehicleName>Volkswagen</vehicleName>
+		<vehicleModel>Golf</vehicleModel>
+		<vehicleAvailability>1</vehicleAvailability>
+		<vehiclePrice>110</vehiclePrice>
+		<vehicleLocation>Rome</vehicleLocation>
+		<vehicleFuelType>Diesel</vehicleFuelType>
+		<vehicleTransmission>Automatic</vehicleTransmission>
+		<vehicleMaxSeats>5</vehicleMaxSeats>
+		<vehicleWheelDrive>FWD</vehicleWheelDrive>
+		<vehicleBodyType>Hatchback</vehicleBodyType>
+		<vehicleLocationId>329</vehicleLocationId>
+		<customerId>null</customerId>
+		<regNo>RM32 ERT</regNo>
+	</Vehicle>
+	</Vehicle>
+		<Vehicle>                                       <!-- An Instance of a vehicle -->
+		<vehicleId>10</vehicleId>
+		<vehicleName>Volkswagen</vehicleName>
+		<vehicleModel>Polo</vehicleModel>
+		<vehicleAvailability>1</vehicleAvailability>
+		<vehiclePrice>135</vehiclePrice>
+		<vehicleLocation>Barcelona</vehicleLocation>
+		<vehicleFuelType>Petrol</vehicleFuelType>
+		<vehicleTransmission>Automatic</vehicleTransmission>
+		<vehicleMaxSeats>5</vehicleMaxSeats>
+		<vehicleWheelDrive>FWD</vehicleWheelDrive>
+		<vehicleBodyType>Hatchback</vehicleBodyType>
+		<vehicleLocationId>330</vehicleLocationId>
+		<customerId>null</customerId>
+		<regNo>BR78 JUY</regNo>
+	</Vehicle>
+	<Customer>
+		<id>1</id>
+		<title>Mr</title>
+		<fName>Masih</fName>
+		<lName>Bayat</lName>
+		<date>01012013</date>
+		<vehicleId>null</vehicleId>
+		<currentlyRenting>0</currentlyRenting>
+		<customerAge>21</customerAge>
+		<customerCountry>London</customerCountry>
+	</Customer>
+	<Customer>
+		<id>2</id>
+		<title>Mrs</title>
+		<fName>Sarah</fName>
+		<lName>Longjohn</lName>
+		<date>15102015</date>
+		<vehicleId>3</vehicleId>
+		<currentlyRenting>1</currentlyRenting>
+		<customerAge>23</customerAge>
+		<customerCountry>Paris</customerCountry>
+	</Customer>
+	<Customer>
+		<id>3</id>
+		<title>Mr</title>
+		<fName>John</fName>
+		<lName>Smith</lName>
+		<date>07072014</date>
+		<vehicleId>6</vehicleId>
+		<currentlyRenting>1</currentlyRenting>
+		<customerAge>25</customerAge>
+		<customerCountry>Barcelona</customerCountry>
+	</Customer>
+	<Customer>
+		<id>4</id>
+		<title>Mr</title>
+		<fName>Ali</fName>
+		<lName>Goodsworth</lName>
+		<date>03182015</date>
+		<vehicleId>7</vehicleId>
+		<currentlyRenting>1</currentlyRenting>
+		<customerAge>22</customerAge>
+		<customerCountry>Rome</customerCountry>
+	</Customer>
+	<Customer>
+		<id>5</id>
+		<title>Ms</title>
+		<fName>Christina</fName>
+		<lName>Woods</lName>
+		<date>03042012</date>
+		<vehicleId>null</vehicleId>
+		<currentlyRenting>1</currentlyRenting>
+		<customerAge>29</customerAge>
+		<customerCountry>Brussels</customerCountry>
+	</Customer>
+	
+	<Location>
+		<id>321</id>
+		<branchName>Paris MRT HQ</branchName>
+		<city>Paris</city>
+		<openingHours>9 - 17</openingHours>
+		<address>3 - 2 Zuckberg Street, PR7 8QG</address>
+		<contactNumber>+22 58 41 256</contactNumber>
+		<branchManagerId>2</branchManagerId>
+	</Location>
+	<Location>
+		<id>322</id>
+		<branchName>London MRT HQ</branchName>
+		<city>London</city>
+		<openingHours>9 - 17</openingHours>
+		<address>12 Endsleigh Street, W13 0RE</address>
+		<contactNumber>+44 123 3897</contactNumber>
+		<branchManagerId>3</branchManagerId>
+	</Location>
+	<Location>
+		<id>323</id>
+		<branchName>Barcelona MRT HQ</branchName>
+		<city>Barcelona</city>
+		<openingHours>9 - 17</openingHours>
+		<address>25 Tuset Road, BR3 9CV</address>
+		<contactNumber>+34 989 9356</contactNumber>
+		<branchManagerId>4</branchManagerId>
+	</Location>
+		<Location>
+		<id>324</id>
+		<branchName>Brussels MRT HQ</branchName>
+		<city>Brussels</city>
+		<openingHours>9 - 17</openingHours>
+		<address>88 Banjamin, BR01 TYR</address>
+		<contactNumber>+02 736 7340</contactNumber>
+		<branchManagerId>5</branchManagerId>
+	</Location>
+	</Location>
+		<Location>
+		<id>325</id>
+		<branchName>Rome MRT HQ</branchName>
+		<city>Rome</city>
+		<openingHours>9 - 17</openingHours>
+		<address>67 Longer Road, RM13 GFD</address>
+		<contactNumber>+06 098 5821</contactNumber>
+		<branchManagerId>6</branchManagerId>
+	</Location>
+	<Rental>
+		<vehicleId>2</vehicleId>
+		<customerId>1</customerId>
+		<no_of_rent_days>5</no_of_rent_days>
+		<penaltyFee>50</penaltyFee>
+		<rentPerDay>100</rentPerDay>
+		<totalAmountPayable>500</totalAmountPayable>
+		<startdate>01102011</startdate>
+		<enddate>22102011</enddate>	
+	</Rental>
+	<Rental>
+		<vehicleId>3</vehicleId>
+		<customerId>2</customerId>
+		<no_of_rent_days>7</no_of_rent_days>
+		<penaltyFee>80</penaltyFee>
+		<rentPerDay>140</rentPerDay>
+		<totalAmountPayable>1050</totalAmountPayable>
+		<startdate>03052015</startdate>
+		<enddate>10052015</enddate>	
+	</Rental>
+	<Rental>
+		<vehicleId>6</vehicleId>
+		<customerId>3</customerId>
+		<no_of_rent_days>3</no_of_rent_days>
+		<penaltyFee>50</penaltyFee>
+		<rentPerDay>120</rentPerDay>
+		<totalAmountPayable>360</totalAmountPayable>
+		<startdate>03052015</startdate>
+		<enddate>06052015</enddate>	
+	</Rental>
+	<Rental>
+		<vehicleId>7</vehicleId>
+		<customerId>4</customerId>
+		<no_of_rent_days>4</no_of_rent_days>
+		<penaltyFee>55</penaltyFee>
+		<rentPerDay>130</rentPerDay>
+		<totalAmountPayable>520</totalAmountPayable>
+		<startdate>06122015</startdate>
+		<enddate>10122015</enddate>	
+	</Rental>
+	<Employee>
+		<id>2</id>
+		<fName>Thomas</fName>
+		<lName>Tangerik</lName>
+		<position>Manager</position>
+		<userName>Thomas101</userName>
+		<password>london123</password>
+	</Employee>
+	<Employee>
+		<id>3</id>
+		<fName>Ian</fName>
+		<lName>Wright</lName>
+		<position>Manager</position>
+		<userName>Ian99</userName>
+		<password>arsenal101</password>
+	</Employee>
+
+</carHire>     <!-- closing the one libraryobject conatining alle the info -->
