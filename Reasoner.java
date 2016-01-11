@@ -18,19 +18,10 @@ import Examples.SimpleGUI;
 
 public class Reasoner {
 
-	// The main Class Object holding the Domain knowledge
-
-	// Generate the classes automatically with: Opening a command console and
-	// type:
-	// Path to YOUR-PROJECTROOT-IN-WORKSPACE\xjc.bat yourschemaname.xsd -d src
-	// -p yourclasspackagename
-
 	public CarHire theCarHire;
-
 	public SimpleGUI Myface;
 
 	// The lists holding the class instances of all carHire (domain) entities
-
 	public List theCarHireList = new ArrayList();
 	public List theVehicleList = new ArrayList();
 	public List theCustomerList = new ArrayList();
@@ -40,7 +31,6 @@ public class Reasoner {
 	public List theRecentThing = new ArrayList(); 
 
 	// Gazetteers to store synonyms for the domain entities names
-
 	public Vector<String> carHiresyn = new Vector<String>();
 	public Vector<String> vehiclesyn = new Vector<String>();
 	public Vector<String> customersyn = new Vector<String>();
@@ -59,22 +49,19 @@ public class Reasoner {
 	public String tooltipstring = "";
 	public String URL = "";              // URL for Wordnet site
 	public String URL2 = "";             // URL for Wikipedia entry
+	public boolean loggedIn = false; // Check's whether user logged in or not
 
 	public Reasoner(SimpleGUI myface) {
 
 		Myface = myface; // reference to GUI to update Tooltip-Text
-		// basic constructor for the constructors sake :)
 	}
 
 	public void initknowledge() { // load all the library knowledge from XML 
 
 		JAXB_XMLParser xmlhandler = new JAXB_XMLParser(); // we need an instance of our parser
-
-		//This is a candidate for a name change
 		File xmlfiletoload = new File("carhire2.xml"); // we need a (CURRENT)  file (xml) to load  
 
 		// Init synonmys and typo forms in gazetteers
-
 		carHiresyn.add("carhire");
 		carHiresyn.add("hire");
 		carHiresyn.add("carrental");
@@ -127,7 +114,7 @@ public class Reasoner {
 		rentalsyn.add("get");
 		rentalsyn.add("take");
 		rentalsyn.add("hire");
-		
+
 		employeesyn.add("manager");
 		employeesyn.add("salesman");
 		employeesyn.add("personal");
@@ -147,7 +134,6 @@ public class Reasoner {
 			FileInputStream readthatfile = new FileInputStream(xmlfiletoload); // initiate input stream
 
 			theCarHire = xmlhandler.loadXML(readthatfile);
-
 			// Fill the Lists with the objects data just generated from the xml
 
 			theVehicleList = theCarHire.getVehicle();
@@ -155,7 +141,7 @@ public class Reasoner {
 			theLocationList = theCarHire.getLocation();
 			theRentalList = theCarHire.getRental();
 			theEmployeeList = theCarHire.getEmployee();
-			theCarHireList.add(theCarHire);             // force it to be a List
+			theCarHireList.add(theCarHire); // force it to be a List
 		}
 
 		catch (Exception e) {
@@ -168,25 +154,18 @@ public class Reasoner {
 
 		Vector<String> out = new Vector<String>();
 		out.clear();                 // just to make sure this is a new and clean vector
-		
+
 		questiontype = "none";
-
 		Integer Answered = 0;        // check if answer was generated
-
 		Integer subjectcounter = 0;  // Counter to keep track of # of identified subjects (classes)
-		
+
 		// Answer Generation Idea: content = Questiontype-method(classtype class) (+optional attribute)
-
 		// ___________________________ IMPORTANT _____________________________
-
 		input = input.toLowerCase(); // all in lower case because thats easier to analyse
-		
 		// ___________________________________________________________________
-
 		String answer = "";          // the answer we return
 
-		// ----- Check for the kind of question (number, location, etc)------------------------------
-
+		// Questions below
 		if (input.contains("how many")){questiontype = "amount"; input = input.replace("how many", "<b>how many</b>");} 
 		if (input.contains("number of")){questiontype = "amount"; input = input.replace("number of", "<b>number of</b>");}
 		if (input.contains("hire")){questiontype = "amount"; input = input.replace("hire", "<b>hire</b>");}
@@ -200,7 +179,7 @@ public class Reasoner {
 		if (input.contains("show")){questiontype = "list"; input = input.replace("show", "<b>show</b>");}
 		if (input.contains("can i see")){questiontype = "list"; input = input.replace("can i see", "<b>can i see</b>");}
 		if (input.contains("can i view")){questiontype = "list"; input = input.replace("can i view", "<b>can i view</b>");}
-		
+
 		if (input.contains("is there a")){questiontype = "checkfor"; input = input.replace("is there a", "<b>is there a</b>");}
 		if (input.contains("i am searching")){questiontype = "checkfor"; input = input.replace("i am searching", "<b>i am searching</b>");}
 		if (input.contains("i am looking for")){questiontype = "checkfor"; input = input.replace("i am looking for", "<b>i am looking for</b>");}
@@ -208,6 +187,8 @@ public class Reasoner {
 		if (input.contains("i look for")){questiontype = "checkfor"; input = input.replace("i look for", "<b>i look for</b>");}
 		if (input.contains("is there")){questiontype = "checkfor"; input = input.replace("is there", "<b>is there</b>");}
 		if (input.contains("will you have")){questiontype = "checkfor"; input = input.replace("will you have", "<b>will you have</b>");}
+
+		if (input.contains("username")){questiontype = "customer"; input = input.replace("username", "<b>username</b>");}
 
 		if (input.contains("where") 
 				|| input.contains("can't find")
@@ -233,7 +214,7 @@ public class Reasoner {
 			questiontype = "intent";
 			System.out.println("Find Vehicle Availability");
 		}
-		
+
 		if (input.contains("help") 
 				|| input.contains("cmd")
 				|| input.contains("commands")
@@ -249,7 +230,7 @@ public class Reasoner {
 			questiontype = "help";
 			System.out.println("help");
 		}
-		
+
 		if (input.contains("thank you") 
 				|| input.contains("bye")
 				|| input.contains("thanks")
@@ -263,15 +244,25 @@ public class Reasoner {
 			System.out.println("farewell");
 		}
 
+		if (input.contains("sign out") 
+				|| input.contains("disconnect")
+				|| input.contains("sign me out")
+				|| input.contains("logout")
+				|| input.contains("close"))
+
+		{
+			questiontype = "signout";
+			System.out.println("signout");
+		}
+
 
 		// ------- Checking the Subject of the Question --------------------------------------
-
 		for (int x = 0; x < vehiclesyn.size(); x++) { 
 			if (input.contains(vehiclesyn.get(x))) {
 				classtype = theVehicleList;
-				
+
 				input = input.replace(vehiclesyn.get(x), "<b>"+vehiclesyn.get(x)+"</b>");
-				
+
 				subjectcounter = 1;
 				System.out.println(">>> VEHICLE CLASS <<<");
 			}
@@ -279,9 +270,9 @@ public class Reasoner {
 		for (int x = 0; x < customersyn.size(); x++) {
 			if (input.contains(customersyn.get(x))) {
 				classtype = theCustomerList;
-				
+
 				input = input.replace(customersyn.get(x), "<b>"+customersyn.get(x)+"</b>");
-				
+
 				subjectcounter = 1;
 				System.out.println(">>> CUSTOMER CLASS <<<");
 			}
@@ -289,9 +280,9 @@ public class Reasoner {
 		for (int x = 0; x < locationsyn.size(); x++) {
 			if (input.contains(locationsyn.get(x))) {
 				classtype = theLocationList;
-				
+
 				input = input.replace(locationsyn.get(x), "<b>"+locationsyn.get(x)+"</b>");
-				
+
 				subjectcounter = 1;	
 				System.out.println(">>> LOCATION CLASS <<<");
 			}
@@ -299,9 +290,9 @@ public class Reasoner {
 		for (int x = 0; x < rentalsyn.size(); x++) {
 			if (input.contains(rentalsyn.get(x))) {
 				classtype = theRentalList;
-				
+
 				input = input.replace(rentalsyn.get(x), "<b>"+rentalsyn.get(x)+"</b>");
-				
+
 				subjectcounter = 1;	
 				System.out.println(">>> RENTAL <<<");
 			}
@@ -309,75 +300,57 @@ public class Reasoner {
 		for (int x = 0; x < employeesyn.size(); x++) {
 			if (input.contains(employeesyn.get(x))) {
 				classtype = theEmployeeList;
-				
+
 				input = input.replace(employeesyn.get(x), "<b>"+employeesyn.get(x)+"</b>");
-				
+
 				subjectcounter = 1;	
 				System.out.println(">>> EMPLOYEE <<<");
 			}
 		}
-		
+
 		if(subjectcounter == 0){
 			for (int x = 0; x < recentobjectsyn.size(); x++) {  
 				if (input.contains(recentobjectsyn.get(x))) {
 					classtype = theRecentThing;
-					
+
 					input = input.replace(recentobjectsyn.get(x), "<b>"+recentobjectsyn.get(x)+"</b>");
-					
+
 					subjectcounter = 1;
 					System.out.println(">>> CLASS "+recentobjectsyn.get(x));
 				}
 			}
 		}
-
-		// More than one subject in question + carHire ...
-		// "Does the carHire has .. Subject 2 ?"
-
-		System.out.println("subjectcounter = "+subjectcounter);
+		//System.out.println("subjectcounter = "+subjectcounter);
 
 		for (int x = 0; x < carHiresyn.size(); x++) {
-
 			if (input.contains(carHiresyn.get(x))) {
-
-				// Problem: "How many vehicles do you have wworldwide ?" -> classtype = carHire
-				// Solution:
-				
 				if (subjectcounter == 0) { // carHire is the first subject in the question
-					
 					input = input.replace(carHiresyn.get(x), "<b>"+carHiresyn.get(x)+"</b>");
-					
 					classtype = theCarHireList;
-					System.out.println(">>> LIBRARY CLASS <<<");		
-
+					System.out.println(">>> carHIRE CLASS <<<");		
 				}
 			}
 		}
 
 		// Compose Method call and generate answerVector
 		if (questiontype == "amount") { // Number of Subject
-
 			Integer numberof = Count(classtype);
-
 			// Total count of vehicles MRT holds + location of branches
 			answer=("MRT carHire operates in numerous countries. As of today, we have over <b> " + numberof
 					+ classtype.get(0).getClass().getSimpleName() + "s</b> available for you to rent accross all our branches which includes <b>London, GB</b> and <b>Paris, FR</b>"
 					+".");
 
 			Answered = 1; // Answer generated
-
 		}
 
-		if (questiontype == "list") { // List all Subjects of a kind
-
+		if (questiontype == "list") { // Prints all the list of kind (vehicles, customers, etc)
 			answer=("At the moment, we have all these "
 					+ classtype.get(0).getClass().getSimpleName().toLowerCase() + "s to rent accross all our branches:"
 					+ ListAll(classtype));
 			Answered = 1; // Answer generated
-
 		}
 
-		if (questiontype == "checkfor") { // test for a certain Subject instance
-
+		if (questiontype == "checkfor") { // Prints and checks for whether class
 			Vector<String> check = CheckFor(classtype, input);
 			answer=(check.get(0));
 			Answered = 1; // Answer generated
@@ -395,13 +368,9 @@ public class Reasoner {
 			}
 		}
 
-		// Location Question in Pronomial form "Where can i find it"
-
-		if (questiontype == "location") {   // We always expect a pronomial question to refer to the last
-											// object questioned for
-
+		if (questiontype == "location") {
 			answer = (VehicleAvailable(classtype, input)
-					+ Location(classtype, input)); // Will return name of the car as well as branch where it is held
+					+ Location(classtype, input)); // Will return the name of the vehicle and if it is available in customers country
 
 			Answered = 1; // Answer generated
 		}
@@ -409,49 +378,158 @@ public class Reasoner {
 		if ((questiontype == "intent" && classtype == theVehicleList) 
 				||(questiontype == "intent" && classtype == theRecentThing)) {
 
-			// Can I have this vehicle?
+			// Can customer have this vehicle?
 			answer = (VehicleAvailable(classtype, input));
 			Answered = 1; // Answer generated
 		}
 
-		if (questiontype == "farewell") {       // Reply to a farewell
-			
-			answer = ("Have a good day, you're welcome!");
+		// Customer starting point (logging in, logging out, etc.)
+		if (questiontype == "customer") {
+			if(loggedIn == false) {
+				answer = (existingCustomer(classtype, input));
 
+				Answered = 1; // Answer generated
+				if ((questiontype == "intent" && classtype == theCustomerList) 
+						||(questiontype == "intent" && classtype == theRecentThing)) {
+
+					answer = (existingCustomer(classtype, input));
+					Answered = 1; // Answer generated
+				}
+			}
+			else {
+				answer = "You're already logged in!<br>Perhaps you need some help? Just ask me for some help"; // Prevents from logging in again
+				Answered = 1; // Answer generated
+			}
+		}
+
+		if (questiontype == "farewell") { 
+			answer = ("Have a good day, you're welcome!");
 			Answered = 1; // Answer generated
 		}
-		
+
+		if (questiontype == "signout") { // Signs out the customer of the system
+			if(loggedIn == true) { // Prevents from signing out of blue
+				answer = ("You're signed out now! Have a nice day, and see you soon! Perhaps driving one of our vehicles?");
+				loggedIn = false;
+			} else {
+				answer = ("You're not signed in. Perhaps you need some help? Just ask me for some help");
+			}
+			Answered = 1; // Answer generated
+		}
+
 		// Contains list (bullet points) of the help commands
 		if (questiontype == "help") {
-			
 			String currList = "It is easy to rent a car, however you can follow these examples below to ask and navigate through the system easily.\n<ul>";
-			
+
+			currList += "<li>You can ask me, to log you in using your first and last name?</li>";
+			currList += "<li>You can ask me, to log you out of the system?</li>";
 			currList += "<li>You can ask me, to list how many cars do we have at the moment?</li>";
 			currList += "<li>You can ask me, to list all the vehicles available?</li>";
 			currList += "<li>You can ask me, to show you a location of particular vehicle</li>";
 			currList += "<li>You can ask me, to rent a particular car</li>";
 			currList += "</ul>";
-			
+
 			answer = currList; // Answer is set
 			Answered = 1; // Answer generated
 		}
-		
+
 		// No answer provided, we ask for user to repeat their question
 		if (Answered == 0) {
-
 			answer = ("Excuse me, can you repeat that, please?");
 		}
 
 		out.add(input);
 		out.add(answer);
-		
 		return out;
+	}
+
+	// Function to check if a customer is new or trying to log in
+	public String existingCustomer(List thelist, String input) {
+		boolean existingCustomer = false;
+		boolean checkEquality = true; // Either check equality or not
+		String answer = "";
+		Customer curcustomer = new Customer();
+		String customertitle = "";
+
+		if(thelist == theCustomerList) {
+			int counter = 0;
+
+			for(int i = 0; i < thelist.size(); i++) {
+				curcustomer = (Customer) thelist.get(i);
+
+				// First and last name MUST be identical in order for user to log in
+				if(input.contains(curcustomer.getFName().toLowerCase()) 
+						&& (input.contains(curcustomer.getLName().toLowerCase()))) {
+
+					counter = i;
+					Currentindex = counter;
+					theRecentThing.clear(); // Clear it before adding (changing)
+					classtype = theCustomerList;
+					theRecentThing.add(classtype.get(Currentindex));
+					customertitle = curcustomer.getTitle();
+
+					// Formatting
+					if (input.contains(curcustomer.getFName().toLowerCase())){input = input.replace(curcustomer.getFName().toLowerCase(), "<b>" + curcustomer.getFName().toLowerCase()+"</b>");}
+					if (input.contains(curcustomer.getLName().toLowerCase())){input = input.replace(curcustomer.getLName().toLowerCase(), "<b>" + curcustomer.getLName().toLowerCase()+"</b>");}
+
+					i = thelist.size() + 1; // break the loop
+				}
+				else {
+					checkEquality = false; // Error handling: in order to prevent further checks
+				}
+				
+				for (int j = 0; j < theCustomerList.size(); j++) {
+					Customer tempCustomer = (Customer) theCustomerList.get(j);
+		
+					if(checkEquality == true) {
+						if(curcustomer.getFName() == null) { curcustomer.setFName("Invalid"); } // Error handling
+						if(curcustomer.getLName() == null) { curcustomer.setFName("Invalid"); } // Error handling
+						
+						// If customer is found check if it is equal to either customers in database
+						if(curcustomer != null && tempCustomer != null) // Error handling
+						{
+							if (curcustomer.getFName().equals(tempCustomer.getFName()) && curcustomer.getLName().equals(tempCustomer.getLName())) {
+		
+								input = input.replace(tempCustomer.getFName().toLowerCase(), "<b>" + curcustomer.getFName().toLowerCase()+"</b>");	
+								existingCustomer = true; // Customer is found in the database
+								
+								i = thelist.size() + 1; // break the loop
+							}
+						}
+						else {
+							System.out.println("Failed, had no cur customer"); // Error handling
+						} 
+					}
+				}
+			}
+		}
+
+		// Formatting the message 
+		if(existingCustomer) {
+			answer = "Welcome back, " + curcustomer.getFName() + " " + curcustomer.getLName() + "<br>"; // Welcomes by name and surname
+			answer = answer + "<br>You can ask me to rent a car, log out, etc. Feel free to ask me anything!";
+			loggedIn = true; // Prevents user from logging in again
+			
+			// URL
+			URL = "http://wordnetweb.princeton.edu/perl/webwn?o2=&o0=1&o8=1&o1=1&o7=&o5=&o9=&o6=&o3=&o4=&s="
+					+ classtype.get(0).getClass().getSimpleName().toLowerCase();
+			URL2 = "http://en.wikipedia.org/wiki/"
+					+ customertitle;
+			System.out.println("URL = "+URL);
+			tooltipstring = readwebsite(URL);
+			String html = "<html>" + tooltipstring + "</html>";
+			Myface.setmytooltip(html);
+			Myface.setmyinfobox(URL2);
+		}
+		else {
+			answer = "Please try again, name or surname are incorrect."; // Error handling
+		}
+		return(answer);
 	}
 
 	// Methods to generate answers for the different kinds of Questions
 	// Answer a question of the "Is a car or "it (meaning a car) available ?" kind
 	public String VehicleAvailable(List thelist, String input) {
-
 		boolean available =true;
 		String answer ="";
 		Vehicle curvehicle = new Vehicle();
@@ -463,7 +541,7 @@ public class Reasoner {
 
 			//Identify which vehicle (model and name) is asked for 
 			for (int i = 0; i < thelist.size(); i++) {
-				
+
 				curvehicle = (Vehicle) thelist.get(i);
 
 				// Atributtes of that particular make and model (incl. fuel type, transmission, etc.)
@@ -479,13 +557,13 @@ public class Reasoner {
 					classtype = theVehicleList;                                 
 					theRecentThing.add(classtype.get(Currentindex));
 					vehicletitle=curvehicle.getVehicleName();
-					
+
 					// Might need to add more atributes >>> SELF NOTES TOMAS, OR SHOULD I SAY THOMAS <<<
 					if (input.contains(curvehicle.getVehicleName().toLowerCase())){input = input.replace(curvehicle.getVehicleName().toLowerCase(), "<b>"+curvehicle.getVehicleName().toLowerCase()+"</b>");}
 					if (input.contains(curvehicle.getVehicleTransmission().toLowerCase())){input = input.replace(curvehicle.getVehicleTransmission().toLowerCase(), "<b>"+curvehicle.getVehicleTransmission().toLowerCase()+"</b>");}
 					if (input.contains(curvehicle.getVehicleFuelType().toLowerCase())){input = input.replace(curvehicle.getVehicleFuelType().toLowerCase(), "<b>"+curvehicle.getVehicleFuelType().toLowerCase()+"</b>");}
 					if (input.contains(curvehicle.getVehicleModel().toLowerCase())){input = input.replace(curvehicle.getVehicleModel().toLowerCase(), "<b>"+curvehicle.getVehicleModel().toLowerCase()+"</b>");}
-										
+
 					i = thelist.size() + 1; // break the loop
 				}
 			}
@@ -508,7 +586,7 @@ public class Reasoner {
 			// Vehicle is not available if it is found
 			if ( curvehicle.getVehicleId().equals(currented.getVehicleId())) { // <<< SELF NOTE HERE TOMAS, OR SHOULD I SAY THOMAS>>> INSTEAD OF ID use REG NO!!!
 				input = input.replace(currented.getStartdate().toLowerCase(), "<b>"+curvehicle.getVehicleName().toLowerCase()+"</b>"); // It should be ID
-				
+
 				available = false;
 				i = thelist.size() + 1; // break the loop
 			}
@@ -516,10 +594,10 @@ public class Reasoner {
 
 		if(available) {
 			answer = "You can hire " + curvehicle.getVehicleName() + " " + curvehicle.getVehicleModel() + " at our " + curvehicle.getVehicleLocation() + " branch today. <br>"; // add details below
-			answer = answer + "<br>Details..."; // Fill up this, Tomas!, don't be lazy
+			answer = answer + "ID: " + curvehicle.getVehicleId() + " <b>" + curvehicle.getVehicleName() + " " + curvehicle.getVehicleModel() + "</b>, " + curvehicle.getVehicleBodyType().toLowerCase() + ", " + curvehicle.getVehicleFuelType().toLowerCase() + ", " + curvehicle.getVehicleMaxSeats() + " seats, " + curvehicle.getVehicleTransmission().toLowerCase() + " transmission\nPrice: <b>£" + curvehicle.getVehiclePrice() + "</b> per day";
 		}
 		else { 
-			answer = "Unfortunately, this particular " + curvehicle.getVehicleName() + " " + curvehicle.getVehicleModel() + " is taken by one of our customer already. However, we do have other makes and models available for you";
+			answer = "Unfortunately, this particular " + curvehicle.getVehicleName() + " " + curvehicle.getVehicleModel() + " is taken by one of our customer already. However, we do have other makes and models available for you - just ask me to list them for you";
 		}
 
 		URL = "http://wordnetweb.princeton.edu/perl/webwn?o2=&o0=1&o8=1&o1=1&o7=&o5=&o9=&o6=&o3=&o4=&s="
@@ -532,7 +610,7 @@ public class Reasoner {
 		Myface.setmytooltip(html);
 		Myface.setmyinfobox(URL2);
 
-		return(answer);
+		return(answer); // Gives an answer to the user
 
 	}
 
@@ -566,7 +644,7 @@ public class Reasoner {
 			} // Prints all the vehicles with particular details in bullet points
 		}
 
-		// Prints customer's >>> Needs to be fixed <<< SELF NOTES
+		// Prints customer's >>> Needs to be fixed <<< SELF NOTES Maybe... add employee to check whether
 		if (thelist == theCustomerList) {
 			for (int i = 0; i < thelist.size(); i++) {
 				Customer curcustomer = (Customer) thelist.get(i);
@@ -583,7 +661,7 @@ public class Reasoner {
 						+ "<li>" + (curlocation.getBranchName() + "</li>");
 			}
 		}
-		
+
 		// Prints rental's >>> Needs to be fixed <<< SELF NOTES
 		if (thelist == theRentalList) {
 			for (int i = 0; i < thelist.size(); i++) {
@@ -592,7 +670,7 @@ public class Reasoner {
 						+ (currental.getVehicleId() + "</li>");
 			}
 		}
-		
+
 		listemall += "</ul>"; // Closes bullet points
 
 		URL = "http://wordnetweb.princeton.edu/perl/webwn?o2=&o0=1&o8=1&o1=1&o7=&o5=&o9=&o6=&o3=&o4=&s="
@@ -604,7 +682,7 @@ public class Reasoner {
 		String html = "<html>" + tooltipstring + "</html>";
 		Myface.setmytooltip(html);
 		Myface.setmyinfobox(URL2);
-		
+
 		return listemall;
 	}
 
@@ -616,19 +694,19 @@ public class Reasoner {
 			yesorno.add("Please specify what are you looking for? Vehicle, customer, employee or rental information?");
 		} else {
 			yesorno.add("No we don't have such a "
-				+ classtype.get(0).getClass().getSimpleName()); // SELF NOTES <<<
+					+ classtype.get(0).getClass().getSimpleName()); // SELF NOTES <<<
 		}
 
 		Integer counter = 0;
 
 		if (thelist == theVehicleList) {
-			
+
 
 			for (int i = 0; i < thelist.size(); i++) {
 
 				Vehicle curvehicle = (Vehicle) thelist.get(i);
 
-				// Check if MRT helds this particular car
+				// Check if MRT has this particular vehicle
 				if (input.contains(curvehicle.getVehicleName().toLowerCase())
 						|| input.contains(curvehicle.getVehicleTransmission().toLowerCase())
 						|| input.contains(curvehicle.getVehicleFuelType().toLowerCase())
@@ -662,9 +740,9 @@ public class Reasoner {
 				Location curlocation = (Location) thelist.get(i);
 				if (input.contains(curlocation.getBranchName().toLowerCase())) {
 
-				// Original
-				//if (input.contains(curlocation.getBranchName().toLowerCase())
-						//|| input.contains(curlocation.getUrl().toLowerCase())) {
+					// Original
+					//if (input.contains(curlocation.getBranchName().toLowerCase())
+					//|| input.contains(curlocation.getUrl().toLowerCase())) {
 
 					counter = i;
 					yesorno.set(0, "Yes we have such a Location");
@@ -673,12 +751,12 @@ public class Reasoner {
 				}
 			}
 		}
-		
+
 		if (thelist == theRentalList) {
 			for (int i = 0; i < thelist.size(); i++) {
 				Rental currented = (Rental) thelist.get(i);
 				if (input.contains((CharSequence) currented.getVehicleId())
-					|| input.contains((CharSequence) currented.getCustomerId())){
+						|| input.contains((CharSequence) currented.getCustomerId())){
 
 					counter = i;
 					yesorno.set(0, "Yes we have such a Rental");
@@ -692,16 +770,16 @@ public class Reasoner {
 			System.out.println("Not class type given.");
 		} else {
 			URL = "http://wordnetweb.princeton.edu/perl/webwn?o2=&o0=1&o8=1&o1=1&o7=&o5=&o9=&o6=&o3=&o4=&s="
-				+ classtype.get(0).getClass().getSimpleName().toLowerCase();
+					+ classtype.get(0).getClass().getSimpleName().toLowerCase();
 			URL2 = "http://en.wikipedia.org/wiki/"
-				+ classtype.get(0).getClass().getSimpleName().toLowerCase();
+					+ classtype.get(0).getClass().getSimpleName().toLowerCase();
 			System.out.println("URL = "+URL);
 			tooltipstring = readwebsite(URL);
 			String html = "<html>" + tooltipstring + "</html>";
 			Myface.setmytooltip(html);
 			Myface.setmyinfobox(URL2);
 		}
-	
+
 		return yesorno;
 	}
 
@@ -782,16 +860,14 @@ public class Reasoner {
 
 					Customer curcustomer = (Customer) thelist.get(i);
 
-					// SELF NOTES <<< Change this
 					if (input.contains(curcustomer.getFName().toLowerCase())
-							|| input.contains(curcustomer.getLName().toLowerCase())
-							|| input.contains((CharSequence) curcustomer.getId())) {
+							&& input.contains(curcustomer.getLName().toLowerCase())) {
 
 						counter = i;
-						location = (curcustomer.getCustomerCountry() + " ");
+						location = curcustomer.getCustomerCountry() + " ";
 						Currentindex = counter;
-						theRecentThing.clear(); 										// Clear it before adding (changing) the
-						classtype = theCustomerList;            	 						//This is a candidate for a name change
+						theRecentThing.clear();
+						classtype = theCustomerList;
 						theRecentThing.add(classtype.get(Currentindex));
 						i = thelist.size() + 1; // break the loop
 					}
@@ -807,8 +883,8 @@ public class Reasoner {
 					Location curlocation = (Location) thelist.get(i);
 
 					if (input.contains(curlocation.getBranchName().toLowerCase())) {
-					//if (input.contains(curlocation.getBranchName().toLowerCase())				     
-					//		|| input.contains(curlocation.getUrl().toLowerCase())) {
+						//if (input.contains(curlocation.getBranchName().toLowerCase())				     
+						//		|| input.contains(curlocation.getUrl().toLowerCase())) {
 
 						counter = i;
 						location = (curlocation.getBranchName() + " ");
@@ -875,7 +951,7 @@ public class Reasoner {
 
 			// Hard coded cut out from "wordnet website source text": 
 			//Check if website still has this structure   vvvv ...definitions...  vvvv 		
-			
+
 			webtext = webtext.substring(webtext.indexOf("<ul>"),webtext.indexOf("</ul>"));                                 //               ^^^^^^^^^^^^^^^^^              
 
 			webtext = "<table width=\"700\"><tr><td>" + webtext
